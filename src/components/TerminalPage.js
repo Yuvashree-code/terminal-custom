@@ -5,7 +5,6 @@ import './TerminalPage.css';
 const TerminalPage = () => {
   const [terminalData, setTerminalData] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
-  const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isComplete, setIsComplete] = useState(false);
   const [currentTheme, setCurrentTheme] = useState('classic');
@@ -32,7 +31,6 @@ const TerminalPage = () => {
     if (!terminalData || !terminalData.lines || terminalData.lines.length === 0) return;
     
     setIsRunning(true);
-    setCurrentLineIndex(0);
     setDisplayedText('');
     setIsComplete(false);
     
@@ -90,7 +88,6 @@ const TerminalPage = () => {
           setDisplayedText(prev => prev + '\n');
           lineIndex++;
           charIndex = 0;
-          setCurrentLineIndex(lineIndex);
           setTimeout(typeUserText, 200); // Pause between lines
         }
       };
@@ -103,7 +100,6 @@ const TerminalPage = () => {
 
   const resetTerminal = () => {
     setIsRunning(false);
-    setCurrentLineIndex(0);
     setDisplayedText('');
     setIsComplete(false);
   };
