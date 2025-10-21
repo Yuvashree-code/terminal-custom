@@ -7,6 +7,7 @@ const HomePage = () => {
   const [lines, setLines] = useState(['']);
   const [selectedTheme, setSelectedTheme] = useState('classic');
   const [fontColor, setFontColor] = useState('#00ff00');
+  const [backgroundColor, setBackgroundColor] = useState('#0a0a0a');
   const [typingSpeed, setTypingSpeed] = useState(50);
   const navigate = useNavigate();
 
@@ -48,6 +49,7 @@ const HomePage = () => {
       lines: cleanLines,
       theme: selectedTheme,
       fontColor,
+      backgroundColor,
       typingSpeed
     }));
     navigate('/terminal');
@@ -58,11 +60,16 @@ const HomePage = () => {
     const theme = themes.find(t => t.id === themeId);
     if (theme) {
       setFontColor(theme.color);
+      setBackgroundColor(theme.bg);
     }
   };
 
   const handleCustomColorChange = (color) => {
     setFontColor(color);
+  };
+
+  const handleBackgroundColorChange = (color) => {
+    setBackgroundColor(color);
   };
 
   return (
@@ -93,7 +100,7 @@ const HomePage = () => {
               </div>
             </div>
 
-            {/* Custom Color Picker */}
+            {/* Custom Color Pickers */}
             <div className="color-section">
               <label className="section-label">Custom Font Color:</label>
               <div className="color-picker-group">
@@ -109,6 +116,25 @@ const HomePage = () => {
                   onChange={(e) => handleCustomColorChange(e.target.value)}
                   className="color-input"
                   placeholder="#00ff00"
+                />
+              </div>
+            </div>
+
+            <div className="color-section">
+              <label className="section-label">Custom Background Color:</label>
+              <div className="color-picker-group">
+                <input
+                  type="color"
+                  value={backgroundColor}
+                  onChange={(e) => handleBackgroundColorChange(e.target.value)}
+                  className="color-picker"
+                />
+                <input
+                  type="text"
+                  value={backgroundColor}
+                  onChange={(e) => handleBackgroundColorChange(e.target.value)}
+                  className="color-input"
+                  placeholder="#0a0a0a"
                 />
               </div>
             </div>

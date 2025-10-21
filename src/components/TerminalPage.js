@@ -10,6 +10,7 @@ const TerminalPage = () => {
   const [isComplete, setIsComplete] = useState(false);
   const [currentTheme, setCurrentTheme] = useState('classic');
   const [fontColor, setFontColor] = useState('#00ff00');
+  const [backgroundColor, setBackgroundColor] = useState('#0a0a0a');
   const [typingSpeed, setTypingSpeed] = useState(50);
   const navigate = useNavigate();
 
@@ -20,6 +21,7 @@ const TerminalPage = () => {
       setTerminalData(parsedData);
       setCurrentTheme(parsedData.theme || 'classic');
       setFontColor(parsedData.fontColor || '#00ff00');
+      setBackgroundColor(parsedData.backgroundColor || '#0a0a0a');
       setTypingSpeed(parsedData.typingSpeed || 50);
     } else {
       navigate('/');
@@ -127,7 +129,7 @@ const TerminalPage = () => {
             <span className="btn minimize"></span>
             <span className="btn maximize"></span>
           </div>
-          <div className="terminal-title">Ecoverse Terminal - {currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1)} Theme</div>
+          <div className="terminal-title">Ecoverse</div>
         </div>
         
         <div className="terminal-body">
@@ -136,7 +138,10 @@ const TerminalPage = () => {
               
             </div>
             
-            <div className="terminal-output">
+            <div 
+              className="terminal-output"
+              style={{ backgroundColor: backgroundColor }}
+            >
               <pre 
                 className="output-text"
                 style={{ color: fontColor }}
@@ -149,9 +154,6 @@ const TerminalPage = () => {
             {isComplete && (
               <div className="completion-message">
                 <div className="prompt-line">
-                  <span className="user">user@terminal</span>
-                  <span className="path">:~$</span>
-                  <span className="success">✓ Display complete</span>
                 </div>
               </div>
             )}
