@@ -34,7 +34,7 @@
 
 .terminal-window {
   width: 100%;
-  max-width: 500px;
+  max-width: 400px;
   height: 80vh;
   background: #0d1117;
   border-radius: 8px;
@@ -43,6 +43,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  aspect-ratio: 3/4;
 }
 
 .terminal-header {
@@ -256,6 +257,7 @@
   
   .terminal-window {
     height: 90vh;
+    aspect-ratio: 3/4;
   }
   
   .terminal-body {
