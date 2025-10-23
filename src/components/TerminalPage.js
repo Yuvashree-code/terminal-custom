@@ -10,6 +10,7 @@ const TerminalPage = () => {
   const [currentTheme, setCurrentTheme] = useState('classic');
   const [fontColor, setFontColor] = useState('#00ff00');
   const [backgroundColor, setBackgroundColor] = useState('#0a0a0a');
+  const [fontSize, setFontSize] = useState(14);
   const [typingSpeed, setTypingSpeed] = useState(50);
   const navigate = useNavigate();
 
@@ -21,6 +22,7 @@ const TerminalPage = () => {
       setCurrentTheme(parsedData.theme || 'classic');
       setFontColor(parsedData.fontColor || '#00ff00');
       setBackgroundColor(parsedData.backgroundColor || '#0a0a0a');
+      setFontSize(parsedData.fontSize || 14);
       setTypingSpeed(parsedData.typingSpeed || 50);
     } else {
       navigate('/');
@@ -34,21 +36,43 @@ const TerminalPage = () => {
     setDisplayedText('');
     setIsComplete(false);
     
-    let currentStep = 0;
-    const steps = [
-      () => setDisplayedText('root@Ecoverse:~$ [system.sh]\n'),
-      () => setDisplayedText(prev => prev + 'Initializing Ecoverse...\n'),
-      () => setDisplayedText(prev => prev + '\n'),
+    // System initialization messages with typing animation
+    const systemMessages = [
+      'root@Ecoverse:~$ [system.sh]',
+      'Initializing Ecoverse...',
+      'Connecting innovation with sustainability...',
+      ''
     ];
     
-    const typeText = () => {
-      if (currentStep < steps.length) {
-        steps[currentStep]();
-        currentStep++;
-        setTimeout(typeText, 800);
+    let messageIndex = 0;
+    let charIndex = 0;
+    
+    const typeSystemMessage = () => {
+      if (messageIndex >= systemMessages.length) {
+        // Start typing user text after system messages
+        startUserTextTyping();
         return;
       }
       
+      const currentMessage = systemMessages[messageIndex];
+      
+      if (charIndex < currentMessage.length) {
+        const char = currentMessage.charAt(charIndex);
+        if (char) {
+          setDisplayedText(prev => prev + char);
+        }
+        charIndex++;
+        setTimeout(typeSystemMessage, typingSpeed || 50);
+      } else {
+        // Move to next message
+        setDisplayedText(prev => prev + '\n');
+        messageIndex++;
+        charIndex = 0;
+        setTimeout(typeSystemMessage, 200); // Pause between messages
+      }
+    };
+    
+    const startUserTextTyping = () => {
       // Now type the user's lines with > prefix
       const validLines = terminalData.lines.filter(line => line && line.trim() !== '');
       console.log('Valid lines:', validLines);
@@ -57,10 +81,42 @@ const TerminalPage = () => {
       
       const typeUserText = () => {
         if (lineIndex >= validLines.length) {
-          // Add error message at the end
-          setDisplayedText(prev => prev + '\nAwaiting Ecocore activation...');
-          setIsComplete(true);
-          setIsRunning(false);
+          // Add animated final lines
+          const finalLines = [
+            '\n.............................',
+            '\nSystem status: [ONLINE] !! '
+          ];
+          
+          console.log('Final lines:', finalLines);
+          console.log('Typing speed:', typingSpeed);
+          
+          let finalLineIndex = 0;
+          let finalCharIndex = 0;
+          
+          const typeFinalLines = () => {
+            if (finalLineIndex >= finalLines.length) {
+              setIsComplete(true);
+              setIsRunning(false);
+              return;
+            }
+            
+            const currentFinalLine = finalLines[finalLineIndex];
+            
+            if (finalCharIndex < currentFinalLine.length) {
+              const char = currentFinalLine.charAt(finalCharIndex);
+              if (char) {
+                setDisplayedText(prev => prev + char);
+              }
+              finalCharIndex++;
+              setTimeout(typeFinalLines, typingSpeed || 50);
+            } else {
+              finalLineIndex++;
+              finalCharIndex = 0;
+              setTimeout(typeFinalLines, 200);
+            }
+          };
+          
+          setTimeout(typeFinalLines, 500);
           return;
         }
         
@@ -95,7 +151,8 @@ const TerminalPage = () => {
       setTimeout(typeUserText, 500);
     };
     
-    setTimeout(typeText, 500); // Initial delay
+    // Start with system messages
+    setTimeout(typeSystemMessage, 500); // Initial delay
   };
 
   const resetTerminal = () => {
@@ -140,7 +197,7 @@ const TerminalPage = () => {
             >
               <pre 
                 className="output-text"
-                style={{ color: fontColor }}
+                style={{ color: fontColor, fontSize: `${fontSize}px` }}
               >
                 {displayedText}
                 {isRunning && <span className="cursor" style={{ color: fontColor }}>█</span>}

@@ -8,6 +8,7 @@ const HomePage = () => {
   const [selectedTheme, setSelectedTheme] = useState('classic');
   const [fontColor, setFontColor] = useState('#00ff00');
   const [backgroundColor, setBackgroundColor] = useState('#0a0a0a');
+  const [fontSize, setFontSize] = useState(14);
   const [typingSpeed, setTypingSpeed] = useState(50);
   const navigate = useNavigate();
 
@@ -50,6 +51,7 @@ const HomePage = () => {
       theme: selectedTheme,
       fontColor,
       backgroundColor,
+      fontSize,
       typingSpeed
     }));
     navigate('/terminal');
@@ -136,6 +138,25 @@ const HomePage = () => {
                   className="color-input"
                   placeholder="#0a0a0a"
                 />
+              </div>
+            </div>
+
+            {/* Font Size Control */}
+            <div className="font-size-section">
+              <label className="section-label">
+                Font Size: {fontSize}px
+              </label>
+              <div className="font-size-control">
+                <span className="size-label">Small</span>
+                <input
+                  type="range"
+                  min="10"
+                  max="24"
+                  value={fontSize}
+                  onChange={(e) => setFontSize(parseInt(e.target.value))}
+                  className="size-slider"
+                />
+                <span className="size-label">Large</span>
               </div>
             </div>
 
