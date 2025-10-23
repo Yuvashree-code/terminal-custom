@@ -72,7 +72,7 @@ const TerminalPage = () => {
         setDisplayedText(prev => prev + '\n');
         messageIndex++;
         charIndex = 0;
-        setTimeout(typeSystemMessage, 2000); // 2 second pause between messages
+        setTimeout(typeSystemMessage, 1000); // 1 second pause between messages
       }
     };
     
@@ -116,7 +116,7 @@ const TerminalPage = () => {
             } else {
               finalLineIndex++;
               finalCharIndex = 0;
-              setTimeout(typeFinalLines, 2000); // 2 second pause between final lines
+              setTimeout(typeFinalLines, 1000); // 1 second pause between final lines
             }
           };
           
@@ -148,7 +148,7 @@ const TerminalPage = () => {
           setDisplayedText(prev => prev + '\n');
           lineIndex++;
           charIndex = 0;
-          setTimeout(typeUserText, 2000); // 2 second pause between lines
+          setTimeout(typeUserText, 1000); // 1 second pause between lines
         }
       };
       
