@@ -48,8 +48,10 @@ const TerminalPage = () => {
     let charIndex = 0;
     
     const typeSystemMessage = () => {
+      console.log('typeSystemMessage called, messageIndex:', messageIndex, 'systemMessages.length:', systemMessages.length);
       if (messageIndex >= systemMessages.length) {
         // Start typing user text after system messages
+        console.log('Starting user text typing');
         startUserTextTyping();
         return;
       }
@@ -58,6 +60,7 @@ const TerminalPage = () => {
       
       if (charIndex < currentMessage.length) {
         const char = currentMessage.charAt(charIndex);
+        console.log('Typing char:', char, 'charIndex:', charIndex, 'message:', currentMessage);
         if (char) {
           setDisplayedText(prev => prev + char);
         }
@@ -65,10 +68,11 @@ const TerminalPage = () => {
         setTimeout(typeSystemMessage, typingSpeed || 50);
       } else {
         // Move to next message
+        console.log('Finished message:', currentMessage, 'moving to next');
         setDisplayedText(prev => prev + '\n');
         messageIndex++;
         charIndex = 0;
-        setTimeout(typeSystemMessage, 200); // Pause between messages
+        setTimeout(typeSystemMessage, 2000); // 2 second pause between messages
       }
     };
     
@@ -112,7 +116,7 @@ const TerminalPage = () => {
             } else {
               finalLineIndex++;
               finalCharIndex = 0;
-              setTimeout(typeFinalLines, 200);
+              setTimeout(typeFinalLines, 2000); // 2 second pause between final lines
             }
           };
           
@@ -144,7 +148,7 @@ const TerminalPage = () => {
           setDisplayedText(prev => prev + '\n');
           lineIndex++;
           charIndex = 0;
-          setTimeout(typeUserText, 200); // Pause between lines
+          setTimeout(typeUserText, 2000); // 2 second pause between lines
         }
       };
       
