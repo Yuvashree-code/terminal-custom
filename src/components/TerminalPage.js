@@ -40,6 +40,7 @@ const TerminalPage = () => {
     const systemMessages = [
       'root@Ecoverse:~$ [system.sh]',
       'Initializing Ecoverse...',
+      '',
       'Connecting innovation with sustainability...',
       ''
     ];
@@ -87,7 +88,8 @@ const TerminalPage = () => {
         if (lineIndex >= validLines.length) {
           // Add animated final lines
           const finalLines = [
-            '\nSystem status: [ONLINE]'
+            '\nSystem status: [ONLINE]',
+            '\nAwaiting sponsor activation...
           ];
           
           console.log('Final lines:', finalLines);
