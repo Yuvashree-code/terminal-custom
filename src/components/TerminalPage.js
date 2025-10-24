@@ -89,7 +89,7 @@ const TerminalPage = () => {
           // Add animated final lines
           const finalLines = [
             '\nSystem status: [ONLINE]',
-            '\nAwaiting sponsor activation...
+            '\nAwaiting sponsor activation...'
           ];
           
           console.log('Final lines:', finalLines);
