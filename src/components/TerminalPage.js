@@ -40,7 +40,8 @@ const TerminalPage = () => {
     const systemMessages = [
       'root@Ecoverse:~$ [system.sh]',
       'Initializing Ecoverse...',
-      'Connecting innovation with sustainability...'
+      'Connecting innovation with sustainability...'.
+      ''
     ];
     
     let messageIndex = 0;
